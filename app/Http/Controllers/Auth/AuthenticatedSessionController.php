@@ -19,8 +19,11 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
+        // Revoke existing tokens
         $user->tokens()->delete();
+        
 
+        // Create a new token
         $token = $user->createToken('api-token');
 
         return response()->json([
@@ -35,12 +38,20 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        // Get the authenticated user
+        $user = $request->user();
 
-        $request->session()->invalidate();
+        if ($user) {
+            // Revoke all tokens
+            $user->tokens()->delete();
 
-        $request->session()->regenerateToken();
+            // // Invalidate the session
+            // $request->session()->invalidate();
+            // $request->session()->regenerateToken();
 
-        return response()->noContent();
+            return response()->json(['message' => 'Successfully logged out']);
+        }
+
+        return response()->json(['message' => 'User not authenticated'], 401);
     }
 }

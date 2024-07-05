@@ -39,6 +39,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/start-session', [SessionController::class, 'startSession']);
     Route::post('/end-session', [SessionController::class, 'endSession']);
     
-
-    Route::post('/logout', [AuthenticatedSessionController::class, 'logout']);
 });
