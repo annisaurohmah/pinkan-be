@@ -6,9 +6,11 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\LevelSessionController;
 use App\Http\Controllers\SessionSummaryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SessionController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +41,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/start-session', [SessionController::class, 'startSession']);
     Route::post('/end-session', [SessionController::class, 'endSession']);
     
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });

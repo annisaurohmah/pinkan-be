@@ -35,8 +35,7 @@ class SessionController extends Controller
 
         // Hitung jawaban yang benar
         foreach ($responses as $response) {
-            $question = $response->question;
-            if ($response->user_answer == $question->correct_answer) {
+            if ($response->response == '1') {
                 $correct_answers++;
             }
         }
