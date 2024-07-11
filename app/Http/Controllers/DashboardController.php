@@ -19,7 +19,7 @@ class DashboardController extends Controller
         if (!$id_last_played) {
             $last_played = null;
         }
-
+        else{
         $last_played = Level::select('levels.level_name', 'chapters.chapter_name')
             ->join('chapters', 'chapters.id', '=', 'levels.id_chapter')
             ->join('questions', 'questions.id_level', '=', 'levels.id')
@@ -27,6 +27,7 @@ class DashboardController extends Controller
             ->where('responses.id_session', $id_last_played->id)
             ->orderBy('responses.created_at', 'desc')
             ->first();
+        }
 
         $high_score_baca = Session::where('id_user', $id_user)
             ->join('responses', 'responses.id_session', '=', 'sessions.id')
