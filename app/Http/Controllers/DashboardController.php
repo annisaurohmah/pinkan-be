@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $id_last_played = Session::where('id_user', $id_user)->orderBy('end_time', 'desc')->first();
 
         if (!$id_last_played) {
-            return response()->json(['last_played' => null], 200);
+            $last_played = null;
         }
 
         $last_played = Level::select('levels.level_name', 'chapters.chapter_name')
