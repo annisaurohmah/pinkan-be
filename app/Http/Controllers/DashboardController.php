@@ -28,6 +28,8 @@ class DashboardController extends Controller
             ->orderBy('responses.created_at', 'desc')
             ->first();
 
+        $high_score_baca = 0;
+        $high_score_hitung = 0;
 
         $high_score_baca = Session::where('id_user', $id_user)
             ->join('responses', 'responses.id_session', '=', 'sessions.id')
