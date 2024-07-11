@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -28,6 +29,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
+    Route::post('/update-profile', [UserController::class, 'update']);
+
     Route::get('/chapters/{id_game}', [GameController::class, 'getChapters']);
     Route::get('/chapters/{id_game}/levels/{id_chapter}', [GameController::class, 'getLevels']);
 
@@ -42,4 +45,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/end-session', [SessionController::class, 'endSession']);
     
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
 });
