@@ -28,9 +28,6 @@ class DashboardController extends Controller
             ->orderBy('responses.created_at', 'desc')
             ->first();
 
-        $high_score_baca = 0;
-        $high_score_hitung = 0;
-
         $high_score_baca = Session::where('id_user', $id_user)
             ->join('responses', 'responses.id_session', '=', 'sessions.id')
             ->join('questions', 'responses.id_question', '=', 'questions.id')
@@ -38,6 +35,9 @@ class DashboardController extends Controller
             ->join('chapters', 'levels.id_chapter', '=', 'chapters.id')
             ->where('chapters.id', '1')
             ->max('score');
+        if (!$high_score_baca) {
+            $high_score_baca = 0;
+        }
         $high_score_hitung = Session::where('id_user', $id_user)
             ->join('responses', 'responses.id_session', '=', 'sessions.id')
             ->join('questions', 'responses.id_question', '=', 'questions.id')
@@ -45,6 +45,9 @@ class DashboardController extends Controller
             ->join('chapters', 'levels.id_chapter', '=', 'chapters.id')
             ->where('chapters.id', '2')
             ->max('score');
+        if (!$high_score_hitung) {
+            $high_score_hitung = 0;
+        }
 
         return response()->json([
             'last_played' => $last_played,
