@@ -30,8 +30,9 @@ class SessionSummaryController extends Controller
                              ->whereHas('question.level', function ($query) use ($level_id) {
                                  $query->where('id', $level_id);
                              })
-                             ->with(['question.level.chapter'])
+                             ->with(['question.level.chapter', 'question'])
                              ->get();
+
 
         // Grupkan responses berdasarkan level
         $summary = [];
@@ -43,6 +44,7 @@ class SessionSummaryController extends Controller
 
             $summary[] = [
                 'question_id' => $response->id_question,
+                'question' => $response->question->question,
                 'user_answer' => $response->response,
                 'correct_answer' => $response->question->correct_answer
             ];
