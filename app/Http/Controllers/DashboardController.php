@@ -34,7 +34,7 @@ class DashboardController extends Controller
             ->join('questions', 'responses.id_question', '=', 'questions.id')
             ->join('levels', 'questions.id_level', '=', 'levels.id')
             ->join('chapters', 'levels.id_chapter', '=', 'chapters.id')
-            ->where('chapters.id', '1')
+            ->where('chapters.id_game', '1')
             ->max('score');
         if (!$high_score_baca) {
             $high_score_baca = 0;
@@ -44,7 +44,7 @@ class DashboardController extends Controller
             ->join('questions', 'responses.id_question', '=', 'questions.id')
             ->join('levels', 'questions.id_level', '=', 'levels.id')
             ->join('chapters', 'levels.id_chapter', '=', 'chapters.id')
-            ->where('chapters.id', '2')
+            ->where('chapters.id_game', '2')
             ->max('score');
         if (!$high_score_hitung) {
             $high_score_hitung = 0;
