@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-    Route::post('/update-profile', [UserController::class, 'update']);
+    Route::put('/update-profile', [UserController::class, 'update']);
 
     Route::get('/chapters/{id_game}', [GameController::class, 'getChapters']);
     Route::get('/chapters/{id_game}/levels/{id_chapter}', [GameController::class, 'getLevels']);
