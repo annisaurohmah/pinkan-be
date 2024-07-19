@@ -7,6 +7,7 @@ use App\Models\Response;
 use App\Models\Question;
 use App\Models\Level;
 use App\Models\Chapter;
+use App\Models\Session;
 
 class SessionSummaryController extends Controller
 {
@@ -33,7 +34,6 @@ class SessionSummaryController extends Controller
                              ->with(['question.level.chapter', 'question'])
                              ->get();
 
-
         // Grupkan responses berdasarkan level
         $summary = [];
         foreach ($responses as $response) {
@@ -46,16 +46,23 @@ class SessionSummaryController extends Controller
                 'question_id' => $response->id_question,
                 'question' => $response->question->question,
                 'user_answer' => $response->response,
-                'correct_answer' => $response->question->correct_answer
+                'correct_answer' => $response->question->correct_answer,
+                'created_at' => $response->created_at, // Tambahkan created_at
             ];
         }
+
+        // Dapatkan start_time dan end_time dari session
+        $session = Session::find($session_id);
 
         return response()->json([
             'level_id' => $level_id,
             'session_id' => $session_id,
             'chapter' => $chapter_name,
             'level' => $level_name,
+            'start_time' => $session->start_time, // Tambahkan start_time
+            'end_time' => $session->end_time, // Tambahkan end_time
             'summary' => $summary
         ]);
     }
+
 }
